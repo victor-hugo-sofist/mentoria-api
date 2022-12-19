@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, json, render_template
 from src.stock import Stock
-from colection import download
+from collection import download
 
 banco_de_dados = []
 banco_de_dados.append(Stock("CSN MINERACAO", "CMIN3", 2.5))
