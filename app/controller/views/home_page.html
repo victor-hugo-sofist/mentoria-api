@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title> PRODUTOS FINANCEIROS </title>
+        <style>
+            body {background-color: rgb(214, 232, 243);}
+            h1   {color: blue;text-align: center;font-style: normal;}
+            bd   {color: rgb(10, 14, 33);text-align:justify;font-size: 25px;}
+        </style>
+    </head>
+
+    <html>
+
+        <h1><b> PRODUTOS FINANCEIROS - API </b></h1>
+        
+
+        <body>
+            <bd>Esta API é capaz de salvar informações relativas a produtos financeiros e atualizar seus respectivos preços.<br /><br />
+                
+                <b>Métodos</b><br /><br />
+
+                <b>/</b>--(GET)-- Home page.<br /><br />
+
+                <b>/stocks/</b> --(GET)-- Exibe todos os produtos financeiros cadastrados.<br /><br />
+
+                <b>/stock/ITIU4/</b> --(GET)-- Exibe a informação relativa ao primeiro produto cadastrado com este símbolo.<br /><br />
+
+                <b>/new/stock/</b> --(POST)-- Cadastra um novo produto. É necessário enviar via body, em formato json, as informações "Name", "Symbol" e "Price".<br />
+                    EXEMPLO:<br />
+                    &emsp;{<br />
+                        &emsp;&emsp;"Name": "ITI BANCO DIGITAL",<br />
+                        &emsp;&emsp;"Symbol": "ITIU4",<br />
+                        &emsp;&emsp;"Price": 55<br />
+                    &emsp;}<br /><br />
+
+                    <b>/stock/ITIU4/change/price/</b> --(PATCH)-- Altera o preço do primeiro produto cadastrado com este símbolo. É necessário enviar via body, em formato json, a informação de "Price".<br />
+                    EXEMPLO:<br />
+                    &emsp;{<br />
+                        &emsp;&emsp;"Price": 2<br />
+                    &emsp;}<br /><br />
+
+                    <b>/stock/delete/ITIU4/</b> --(DEL)-- Deleta o primeiro produto com este símbolo cadastrado.<br /><br />
+
+                    <b>/download/</b> --(GET)-- Exibe as requisições do postman em formato json. Para incluir as requisições no Postman basta copiar as informações retornadas e importar como 'raw text'.<br /><br />
+
+            </bd>
+        </body>
+
+
+    </html>
