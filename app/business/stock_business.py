@@ -1,6 +1,6 @@
 from flask import jsonify, request, json, render_template
-from model.stock_db import *
-from model.collection import download
+from dao.stock_db import *
+from postman.collection import download
 
 def home_page():
     return render_template("home_page.html")
@@ -8,6 +8,7 @@ def home_page():
 def collection():
     return download
 
+#fazer testes unitários deste item
 def stocks_in_data_base():
     response = []
     for obj in get_stocks():
