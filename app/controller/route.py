@@ -22,11 +22,13 @@ def show_search_stock(symbol):
 
 @app.route('/new/stock/', methods = ['POST'])
 def post_new_stock():
-    return new_stock()
+    data = json.loads(request.data)
+    return new_stock(data)
 
 @app.route('/stock/<symbol>/change/price/', methods = ['PATCH'])
 def patch_change_stock_price(symbol:str):
-    return change_stock_price(symbol)
+    data = json.loads(request.data)
+    return change_stock_price(symbol, data)
 
 @app.route('/stock/delete/<symbol>/', methods = ['DELETE'])
 def delete_product(symbol:str):
