@@ -10,7 +10,7 @@ class TestStocksInDataBase(unittest.TestCase):
         stocks_list = [["Company A", "A", 10], ["Company B", "B", 20]] 
         mock_get_stocks.return_value = stocks_list 
         expected_result = ({
-                            "Stock": [
+                            "Stocks": [
                                 {"Name": "Company A", "Symbol": "A", "Price": 10},
                                 {"Name": "Company B", "Symbol": "B", "Price": 20}                          
                             ]
@@ -23,7 +23,7 @@ class TestStocksInDataBase(unittest.TestCase):
         stocks_list = [["Company A", "A", 10]]
         mock_get_stocks.return_value = stocks_list 
         expected_result = ({
-                            "Stock": [{"Name": "Company A", "Symbol": "A", "Price": 10}]
+                            "Stocks": [{"Name": "Company A", "Symbol": "A", "Price": 10}]
                             }, 200)
         result = stocks_in_data_base()
         self.assertEqual(result, expected_result)
@@ -33,8 +33,8 @@ class TestStocksInDataBase(unittest.TestCase):
         stocks_list = []
         mock_get_stocks.return_value = stocks_list 
         expected_result = ({
-                            "Stock": []
-                            }, 200)
+                            "Stocks": []
+                            }, 404)
         result = stocks_in_data_base()
         self.assertEqual(result, expected_result)
         
@@ -55,13 +55,13 @@ class TestSearchStock(unittest.TestCase):
         
     @patch('business.stock_business.get_stock_in_table')
     def test_search_stock_when_has_tree_result(self, mock_get_stocks_in_table):
-        mock_get_stocks_in_table.return_value = [["Company A", "ABCD4", 10], ["Company C", "ABCD8", 15], ["Company A", "ABCD4", 10]]
-        expected_result = ({'Stock': [{'Name': 'Company A', 'Symbol': 'ABCD4', 'Price': 10}]}, 200)
-        result = search_stock("ABCD4")
+        mock_get_stocks_in_table.return_value = [["Company A", "ABCD4", 10], ["Company C", "ABCD8", 15], ["Company E", "EBCD4", 1]]
+        expected_result = ({'Stock': [{'Name': 'Company E', 'Symbol': 'EBCD4', 'Price': 1}]}, 200)
+        result = search_stock("EBCD4")
         self.assertEqual(result, expected_result)
         
     @patch('business.stock_business.get_stock_in_table')
-    def test_search_stock_and_the_returned_value_is_the_last_result(self, mock_get_stocks_in_table):
+    def test_search_stock_and_the_returned_value_is_the_first_result(self, mock_get_stocks_in_table):
         mock_get_stocks_in_table.return_value = [["Company A", "ABCD4", 10], ["Company C", "CDEF3", 18], ["Company B", "BCDE3", 10]]
         expected_result = ({'Stock': [{'Name': 'Company A', 'Symbol': 'ABCD4', 'Price': 10}]}, 200)
         result = search_stock("ABCD4")
@@ -69,7 +69,7 @@ class TestSearchStock(unittest.TestCase):
         
 class TestNewStock(unittest.TestCase): 
     @patch('business.stock_business.insert_in_stocks_table')
-    def test_new_stock_fail_integration_test(self, mock_insert_in_stocks_table):
+    def test_new_stock_fail_integration_test_when_trying_to_register_an_existing_stock(self, mock_insert_in_stocks_table):
         mock_insert_in_stocks_table.return_value = None
         data = json.loads('{"Name": "CSN MINERACAO", "Symbol": "CMIN3", "Price": 2.53}')
         expected_result = "", 409
@@ -77,7 +77,7 @@ class TestNewStock(unittest.TestCase):
         self.assertEqual(result, expected_result)
     
     @patch('business.stock_business.insert_in_stocks_table')
-    def test_new_stock_sucess_integration_test(self, mock_insert_in_stocks_table):
+    def test_new_stock_sucess_integration_test_when_trying_to_register_a_new_stock(self, mock_insert_in_stocks_table):
         mock_insert_in_stocks_table.return_value = None
         data = json.loads('{"Name": "Test", "Symbol": "TSTA4", "Price": 10}')
         expected_result = "", 201
@@ -86,7 +86,7 @@ class TestNewStock(unittest.TestCase):
         
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.insert_in_stocks_table')
-    def test_new_stock_fail_unit_test(self, mock_insert_in_stocks_table, mock_get_stock_in_table):
+    def test_new_stock_when_trying_to_register_an_existing_stock(self, mock_insert_in_stocks_table, mock_get_stock_in_table):
         mock_insert_in_stocks_table.return_value = None
         mock_get_stock_in_table.return_value = [["CSN MINERACAO TEST", "CMIN3", 66.66]]
         data = json.loads('{"Name": "CSN MINERACAO", "Symbol": "CMIN3", "Price": 2.53}')
@@ -96,7 +96,7 @@ class TestNewStock(unittest.TestCase):
     
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.insert_in_stocks_table')
-    def test_new_stock_sucess_unit_test(self, mock_insert_in_stocks_table, mock_get_stock_in_table):
+    def test_new_stock_when_trying_to_register_a_new_stock(self, mock_insert_in_stocks_table, mock_get_stock_in_table):
         mock_insert_in_stocks_table.return_value = None
         mock_get_stock_in_table.return_value = []
         data = json.loads('{"Name": "Test", "Symbol": "TSTA4", "Price": 10}')
@@ -107,7 +107,7 @@ class TestNewStock(unittest.TestCase):
 class TestChangeStockPrice(unittest.TestCase):
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.update_price')
-    def test_change_stock_price_sucess(self, mock_update_price,  mock_get_stock_in_table):
+    def test_change_stock_price_of_an_existing_product(self, mock_update_price,  mock_get_stock_in_table):
         mock_update_price.return_value = None
         mock_get_stock_in_table.return_value = [["CSN MINERACAO TEST", "CMIN3", 77.77]]
         data = json.loads('{"Price": 10.03}')
@@ -117,7 +117,7 @@ class TestChangeStockPrice(unittest.TestCase):
     
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.update_price')
-    def test_change_stock_price_fail(self, mock_update_price, mock_get_stock_in_table):
+    def test_change_stock_price_of_a_non_existent_product(self, mock_update_price, mock_get_stock_in_table):
         mock_get_stock_in_table.return_value = []
         mock_update_price.return_value = None
         data = json.loads('{"Price": 10.03}')
@@ -128,7 +128,7 @@ class TestChangeStockPrice(unittest.TestCase):
 class TestDeleteAProduct(unittest.TestCase):
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.delete_in_stocks_table')
-    def test_delete_a_product_sucess(self, mock_delete_in_stocks_table, mock_get_stock_in_table):
+    def test_delete_a_product_of_an_existing_product(self, mock_delete_in_stocks_table, mock_get_stock_in_table):
         mock_get_stock_in_table.return_value = [["CSN MINERACAO TEST", "CMIN3", 9.99]]
         mock_delete_in_stocks_table.return_value = None
         expected_result = "", 200
@@ -137,7 +137,7 @@ class TestDeleteAProduct(unittest.TestCase):
         
     @patch('business.stock_business.get_stock_in_table')
     @patch('business.stock_business.delete_in_stocks_table')
-    def test_delete_a_product_fail(self, mock_delete_in_stocks_table, mock_get_stock_in_table):
+    def test_delete_a_product_of_a_non_existent_product(self, mock_delete_in_stocks_table, mock_get_stock_in_table):
         mock_get_stock_in_table.return_value = []
         mock_delete_in_stocks_table.return_value = None
         expected_result = "", 404

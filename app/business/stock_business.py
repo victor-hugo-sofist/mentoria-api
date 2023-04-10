@@ -16,7 +16,9 @@ def stocks_in_data_base():
                             "Symbol": obj[1],
                             "Price": obj[2]
                         })
-    stocks = {"Stock": response}
+    stocks = {"Stocks": response}
+    if len(response) == 0:
+        return stocks, 404
     return stocks, 200  
 
 def search_stock(symbol):
