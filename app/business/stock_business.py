@@ -18,8 +18,8 @@ def stocks_in_data_base():
                         })
     stocks = {"Stocks": response}
     if len(response) == 0:
-        return stocks, 404
-    return stocks, 200  
+        return response_pattern(404, "there are NOT stocks in the database", stocks)
+    return response_pattern(200, "there are stocks in the database", stocks)
 
 def search_stock(symbol):
     response = []
@@ -31,27 +31,29 @@ def search_stock(symbol):
                                 "Price": obj[2]
                             })
             stock = {"Stock": response}
-            return stock, 200
-    stock = {"Stock": None}
-    return stock, 400
+            return response_pattern(200, f"there are a stock with symbol {symbol} in database", stock)
+    return response_pattern(400, "there are NOT a stock with this symbol in database", None)
 
 def new_stock(data):
     for obj in get_stock_in_table(data['Symbol']):
         if len(obj) > 0:
-            return "", 409
+            return response_pattern(409, "it was not possible to create a new action because the symbol is already in use", None)
     insert_in_stocks_table(Stock(data['Name'], data['Symbol'], data['Price']))
-    return "", 201
+    return response_pattern(201, "new stock created", None)
 
 def change_stock_price(symbol:str, data):
     for obj in get_stock_in_table(symbol):
         if symbol==obj[1]:
             update_price(symbol, data['Price'])
-            return "", 202
-    return "", 404
+            return response_pattern(202, "the price has changed", None)
+    return response_pattern(404, "the product was not found", None)
 
 def delete_a_product(symbol:str):
     for obj in get_stock_in_table(symbol):
         if symbol==obj[1]:
             delete_in_stocks_table("symbol", symbol)
-            return "", 200
-    return "", 404
+            return response_pattern(200, "the stock has been deleted", None)
+    return response_pattern(404, "the action was not found in the database", None)
+
+def response_pattern(status:int, message:str, content:dict):
+    return {"StatusCode": status, "Message": message, "Content": content}, status
