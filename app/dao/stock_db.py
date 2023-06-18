@@ -1,5 +1,5 @@
-from model.stock import Stock
-from dao.db_operation import Db_sqlite
+from app.model.stock import Stock
+from app.dao.db_operation import Db_sqlite
 
 def insert_in_stocks_table(o:Stock):
     table_stocks = "stocks"
