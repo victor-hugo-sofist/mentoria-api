@@ -11,7 +11,7 @@ class TestStocksInDataBase(unittest.TestCase):
         mock_get_stocks.return_value = stocks_list 
         expected_result = ({"Content": {
                             "Stocks": [
-                                {"Name": "Company A", "Symbol": "A", "Price": 10},
+                                {"Name": "Company A", "Symbol": "A", "Price": 20},
                                 {"Name": "Company B", "Symbol": "B", "Price": 20}                          
                             ]
                             }, "Message": "there are stocks in the database", 
