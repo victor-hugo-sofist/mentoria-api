@@ -1,6 +1,6 @@
 from flask import jsonify, request, json, render_template
-from dao.stock_db import *
-from postman.collection import download
+from app.dao.stock_db import *
+from app.postman.collection import download
 
 def home_page():
     return render_template("home_page.html")

@@ -1,5 +1,5 @@
 from flask import Flask
-from business.stock_business import *
+from app.business.stock_business import *
 
 app = Flask(__name__, template_folder='C:\\projeto\\new-mentoria-api\\app\controller\\views')
 
