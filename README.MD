@@ -18,3 +18,23 @@ O Python suporta a execução de módulos diretamente da linha de comando usando
 > `python -m unittest -k test_stocks_in_data_base_when_receive_two_results`
 
 onde -k significa "keyword" (palavra-chave)
+
+### Para medir a cobertura de testes usando o coverage
+
+Instale o coverage:
+> `pip install coverage` 
+
+Execute os testes usando o coverage:
+> `coverage run -m unittest discover`
+
+ou
+
+> `coverage run -m unittest`
+
+Para relatar os resultados:
+
+> `coverage report`
+
+Para uma apresentação de resultados mais elaborada, com detalhamento das linhas não cobertas, execute:
+
+> `coverage html`
