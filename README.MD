@@ -41,6 +41,6 @@ Para relatar os resultados:
 
 > `coverage report`
 
-Para uma apresentação de resultados mais elaborada, com detalhamento das linhas não cobertas, execute:
+Para uma apresentação de resultados mais elaborada, com detalhamento das linhas não cobertas, execute o seguinte arquivo contido na pasta htmlcov:
 
-> `coverage html`
+> `index.html`
