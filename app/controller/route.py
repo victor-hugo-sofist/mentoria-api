@@ -1,7 +1,10 @@
 from flask import Flask
 from app.business.stock_business import *
+import os
 
-app = Flask(__name__, template_folder='C:\\projeto\\new-mentoria-api\\app\controller\\views')
+file_path = os.path.dirname(os.path.abspath(__file__))
+template_views = file_path + '/views'
+app = Flask(__name__, template_folder= template_views)
 
 @app.route('/', methods = ['GET'])
 def home():
