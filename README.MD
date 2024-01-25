@@ -2,6 +2,9 @@
 
 Este projeto se trata de uma API capaz de armazenar produtos, exibir produtos cadastrados, realizar pesquisa por um produto, atualizar preços e deletar produtos.
 
+## Instalando dependências
+> `pip install -r requirements.txt`
+
 ## Executando a API
 > `python main.py`
 
