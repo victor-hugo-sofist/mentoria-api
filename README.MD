@@ -8,6 +8,15 @@ Este projeto se trata de uma API capaz de armazenar produtos, exibir produtos ca
 ## Executando a API
 > `python main.py`
 
+## Executando a via Docker
+Baixe e instale o docker em: `https://www.docker.com/products/docker-desktop/`
+
+Para subir o conteiner:
+> `docker-compose up`
+
+Para fechar o container:
+`CTRL + C`
+
 ## Executando a as requests no Postman
 Após instalar o Postman, procure pela opção `import`, arraste o arquivo `API - Python com flask.postman_collection.json` contido na pasta principal e finalize a ação.
 
