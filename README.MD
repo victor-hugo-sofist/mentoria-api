@@ -18,7 +18,7 @@ Para fechar o container:
 `CTRL + C`
 
 ## Executando a as requests no Postman
-Após instalar o Postman, procure pela opção `import`, arraste o arquivo `API - Python com flask.postman_collection.json` contido na pasta principal e finalize a ação.
+Após instalar o Postman, procure pela opção `import`, arraste o arquivo `API - Python com flask.postman_collection.json` contido na pasta collection e finalize a ação.
 
 ## Testes unitários
 ### Para executar todos os testes:
