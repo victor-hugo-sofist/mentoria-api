@@ -15,9 +15,3 @@ EXPOSE 5000
 
 # Comando para executar a aplicação quando o contêiner iniciar
 CMD ["python", "main.py"]
-
-# docker build -t nome_da_imagem .
-# docker build -t mentoria_image .
-
-# docker run -p 5000:5000 -v caminho_local:/app nome_da_imagem
-# docker run -p 5000:5000 -v $(pwd):/app mentoria_image
