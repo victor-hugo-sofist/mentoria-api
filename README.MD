@@ -8,6 +8,9 @@ Este projeto se trata de uma API capaz de armazenar produtos, exibir produtos ca
 ## Executando a API
 > `python main.py`
 
+## Executando a as requests no Postman
+Após instalar o Postman, procure pela opção `import`, arraste o arquivo `API - Python com flask.postman_collection.json` contido na pasta principal e finalize a ação.
+
 ## Testes unitários
 ### Para executar todos os testes:
 > `python -m unittest`
